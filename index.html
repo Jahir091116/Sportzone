@@ -5,114 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPORT ZONE</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#00e5d4}
-header{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;position:sticky;top:0;z-index:10}
-header b{font-size:18px}
-header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold;margin-left:5px}
-.cart-btn{background:#00e5d4;color:#000;border:none;padding:9px 18px;border-radius:20px;font-weight:bold;cursor:pointer}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
-.card{background:#fff;border-radius:14px;padding:10px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.2)}
-.card img{width:100%;height:190px;object-fit:cover;border-radius:10px;cursor:zoom-in}
-.badge{background:#000;color:#00e5d4;font-size:10px;padding:4px 8px;border-radius:10px;display:inline-block;margin:6px 0}
-.name{font-weight:bold;font-size:13px;min-height:34px}
-.price{color:red;font-weight:bold;font-size:20px;margin:5px 0}
-.btn{background:#000;color:#fff;border:none;width:100%;padding:11px;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
-
-/* CARRITO */
+header{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px;position:sticky;top:0;z-index:10}
+header span{background:#00e5d4;color:#000;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold}
+.cart-btn{background:#00e5d4;color:#000;border:none;padding:10px 18px;border-radius:20px;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
+.card{background:#fff;border-radius:14px;padding:10px;text-align:center}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.price{color:red;font-weight:bold;font-size:19px;margin:5px 0}
+.btn{background:#000;color:#fff;width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;margin-top:5px}
 #overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;z-index:20}
-#cart{position:fixed;top:0;right:-100%;width:90%;max-width:380px;height:100%;background:#fff;z-index:21;transition:.3s;padding:20px;overflow-y:auto}
+#cart{position:fixed;top:0;right:-100%;width:88%;max-width:360px;height:100%;background:#fff;z-index:21;transition:.3s;padding:18px;overflow:auto}
 #cart.open{right:0}
-.cart-item{display:flex;gap:10px;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:10px}
-.cart-item img{width:60px;height:60px;border-radius:8px;object-fit:cover}
-.qty button{padding:4px 9px;margin:2px;border:1px solid #000;background:#fff;border-radius:5px;cursor:pointer}
-.checkout{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer}
-
-/* LIGHTBOX - VER FOTO GRANDE */
-#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:30;display:none;justify-content:center;align-items:center;flex-direction:column}
+.checkout{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:10px;font-weight:bold;margin-top:10px}
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);display:none;justify-content:center;align-items:center;z-index:30}
 #lightbox.open{display:flex}
-#lightbox img{max-width:90%;max-height:80%;border-radius:12px}
-#lightbox.close{position:absolute;top:15px;right:20px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
-#lightbox.nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;padding:10px 15px;border-radius:50%;cursor:pointer}
-#prev{left:15px}#next{right:15px}
-#caption{color:#fff;margin-top:12px;font-weight:bold;text-align:center}
+#lightbox img{max-width:92%;max-height:82%;border-radius:12px}
+.navbtn{position:absolute;top:50%;background:rgba(255,255,255,.3);border:none;color:#fff;font-size:28px;padding:10px 14px;border-radius:50%}
+#prev{left:12px}#next{right:12px}
+#closeLb{position:absolute;top:15px;right:18px;background:none;border:none;color:#fff;font-size:32px}
 </style>
 </head>
 <body>
-<header>
-<div><b>SPORT ZONE</b><span>Envios a todo Panama</span></div>
-<button class="cart-btn" onclick="toggleCart()">Carrito <span id="count">0</span></button>
-</header>
+<header><div><b>SPORT ZONE</b> <span>Envios a todo Panama</span></div><button class="cart-btn" onclick="toggleCart()">Carrito <span id="count">0</span></button></header>
 
-<div class="grid" id="grid"></div>
-
-<!-- CARRITO MODAL -->
-<div id="overlay" onclick="toggleCart()"></div>
-<div id="cart">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3>Tu Pedido</h3><button onclick="toggleCart()" style="font-size:24px;background:none;border:none">×</button></div>
-<div id="cartItems" style="margin-top:15px"></div>
-<div id="total" style="font-weight:bold;font-size:18px;margin-top:15px">Total: $0.00</div>
-<button class="checkout" onclick="checkout()">Pedir por WhatsApp</button>
-<button onclick="carrito=[];updateCart()" style="width:100%;margin-top:8px;padding:10px;border:none;background:#eee;border-radius:8px">Vaciar</button>
-</div>
-
-<!-- VER FOTO GRANDE -->
-<div id="lightbox">
-<button class="close" onclick="closeLight()">×</button>
-<button class="nav" id="prev" onclick="move(-1)">❮</button>
-<img id="lightImg" src="">
-<button class="nav" id="next" onclick="move(1)">❯</button>
-<div id="caption"></div>
-</div>
-
-<script>
-const productos=[
-{id:1,nombre:"Crocs Bowser Verde Limited",precio:56.50,img:"crocs1.jpg",desc:"Edicion Limitada - Incluye Jibbitz"},
-{id:2,nombre:"Crocs Princesa Peach Rosa",precio:56.50,img:"crocs2.jpg",desc:"Damas / Ninas - Excelente Calidad"},
-{id:3,nombre:"Crocs Mario Celeste Azul",precio:56.50,img:"crocs3.jpg",desc:"Caballeros Ninos - Excelente Calidad"},
-{id:4,nombre:"Crocs Mario con Gorra 3D",precio:56.50,img:"crocs4.jpg",desc:"Edicion Limitada - Excelente Calidad"}
-];
-let carrito=[];
-let currentIndex=0;
-
-function render(){
-document.getElementById('grid').innerHTML=productos.map((p,i)=>`
-<div class="card">
-<img src="${p.img}" onclick="openLight(${i})">
-<div class="badge">${p.desc}</div>
-<div class="name">${p.nombre}</div>
-<div class="price">$${p.precio.toFixed(2)}</div>
-<button class="btn" onclick="add(${p.id})">+ Agregar al Carrito</button>
-</div>`).join('');
-}
-function add(id){
-let prod=productos.find(p=>p.id===id);
-let ex=carrito.find(p=>p.id===id);
-if(ex)ex.cant++; else carrito.push({...prod,cant:1});
-updateCart();
-}
-function updateCart(){
-document.getElementById('count').innerText=carrito.reduce((s,p)=>s+p.cant,0);
-let div=document.getElementById('cartItems');
-if(carrito.length===0)div.innerHTML="<p style='text-align:center;color:#999'>Carrito vacio</p>";
-else div.innerHTML=carrito.map(p=>`<div class="cart-item"><img src="${p.img}"><div><b>${p.nombre}</b><br>$${p.precio} x ${p.cant}<div class="qty"><button onclick="change(${p.id},-1)">-</button><button onclick="change(${p.id},1)">+</button><button onclick="removeItem(${p.id})">X</button></div></div></div>`).join('');
-document.getElementById('total').innerText="Total: $"+carrito.reduce((s,p)=>s+p.precio*p.cant,0).toFixed(2);
-}
-function change(id,d){let it=carrito.find(p=>p.id===id);if(!it)return;it.cant+=d;if(it.cant<=0)removeItem(id);else updateCart()}
-function removeItem(id){carrito=carrito.filter(p=>p.id!==id);updateCart()}
-function toggleCart(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').style.display=document.getElementById('cart').classList.contains('open')?'block':'none'}
-function checkout(){if(carrito.length===0){alert("Carrito vacio");return}let msg="Hola SPORT ZONE, quiero pedir:%0A";carrito.forEach(p=>{msg+=`- ${p.nombre} x${p.cant} $${p.precio}%0A`});msg+=`%0ATotal: $${carrito.reduce((s,p)=>s+p.precio*p.cant,0).toFixed(2)}%0AEntrega inmediata`;window.open("https://wa.me/50760029048?text="+msg,"_blank")}
-
-// LIGHTBOX
-function openLight(i){currentIndex=i;document.getElementById('lightImg').src=productos[i].img;document.getElementById('caption').innerText=productos[i].nombre;document.getElementById('lightbox').classList.add('open')}
-function closeLight(){document.getElementById('lightbox').classList.remove('open')}
-function move(d){currentIndex=(currentIndex+d+productos.length)%productos.length;openLight(currentIndex)}
-// deslizar con dedo
-let startX=0;
-document.getElementById('lightbox').addEventListener('touchstart',e=>startX=e.touches[0].clientX);
-document.getElementById('lightbox').addEventListener('touchend',e=>{let endX=e.changedTouches[0].clientX;if(endX-startX>50)move(-1);if(startX-endX>50)move(1)});
-
-render();
-</script>
-</body>
-</html>
+<div class="grid">
+<div class="card"><img src="crocs1.jpg" onclick="openLb(0)"><div style="font-size:10px;background:#000;color:#00e5d4;display:inline-block;padding:3px 8px;border-radius:10px;margin:5px">Edicion Limitada</div><div style="font-weight:bold;font-size:12px">Crocs Bowser Verde Limited</div><div class="price">$56.50</div><button class="btn" onclick="addCarrito('Bowser Verde',56.50,'crocs1.jpg')">+ Agregar</button></div>
+<div class="card"><img src="crocs2.jpg" onclick="openLb(1)"><div style="font-size:10px;background:#000;color:#00e5d4;display:inline-block;padding:3px 8px;border-radius:10px;margin:5px">Damas / Ninas</div><div style="font-weight:bold;font-size:12px">Crocs Peach Rosa</div><div class="price">$56.50</div><button class="btn" onclick="addCarrito('Peach Rosa',56.50,'crocs2.jpg')">+ Agregar</button></div>
+<div class="card"><img src="crocs3.jpg" onclick="openLb(2)
