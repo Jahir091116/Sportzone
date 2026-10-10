@@ -32,8 +32,8 @@ header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:12px;fo
 #lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:30;display:none;justify-content:center;align-items:center;flex-direction:column}
 #lightbox.open{display:flex}
 #lightbox img{max-width:90%;max-height:80%;border-radius:12px}
-#lightbox .close{position:absolute;top:15px;right:20px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
-#lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;padding:10px 15px;border-radius:50%;cursor:pointer}
+#lightbox.close{position:absolute;top:15px;right:20px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
+#lightbox.nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;padding:10px 15px;border-radius:50%;cursor:pointer}
 #prev{left:15px}#next{right:15px}
 #caption{color:#fff;margin-top:12px;font-weight:bold;text-align:center}
 </style>
@@ -48,4 +48,71 @@ header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:12px;fo
 
 <!-- CARRITO MODAL -->
 <div id="overlay" onclick="toggleCart()"></div>
-<div
+<div id="cart">
+<div style="display:flex;justify-content:space-between;align-items:center"><h3>Tu Pedido</h3><button onclick="toggleCart()" style="font-size:24px;background:none;border:none">×</button></div>
+<div id="cartItems" style="margin-top:15px"></div>
+<div id="total" style="font-weight:bold;font-size:18px;margin-top:15px">Total: $0.00</div>
+<button class="checkout" onclick="checkout()">Pedir por WhatsApp</button>
+<button onclick="carrito=[];updateCart()" style="width:100%;margin-top:8px;padding:10px;border:none;background:#eee;border-radius:8px">Vaciar</button>
+</div>
+
+<!-- VER FOTO GRANDE -->
+<div id="lightbox">
+<button class="close" onclick="closeLight()">×</button>
+<button class="nav" id="prev" onclick="move(-1)">❮</button>
+<img id="lightImg" src="">
+<button class="nav" id="next" onclick="move(1)">❯</button>
+<div id="caption"></div>
+</div>
+
+<script>
+const productos=[
+{id:1,nombre:"Crocs Bowser Verde Limited",precio:56.50,img:"crocs1.jpg",desc:"Edicion Limitada - Incluye Jibbitz"},
+{id:2,nombre:"Crocs Princesa Peach Rosa",precio:56.50,img:"crocs2.jpg",desc:"Damas / Ninas - Excelente Calidad"},
+{id:3,nombre:"Crocs Mario Celeste Azul",precio:56.50,img:"crocs3.jpg",desc:"Caballeros Ninos - Excelente Calidad"},
+{id:4,nombre:"Crocs Mario con Gorra 3D",precio:56.50,img:"crocs4.jpg",desc:"Edicion Limitada - Excelente Calidad"}
+];
+let carrito=[];
+let currentIndex=0;
+
+function render(){
+document.getElementById('grid').innerHTML=productos.map((p,i)=>`
+<div class="card">
+<img src="${p.img}" onclick="openLight(${i})">
+<div class="badge">${p.desc}</div>
+<div class="name">${p.nombre}</div>
+<div class="price">$${p.precio.toFixed(2)}</div>
+<button class="btn" onclick="add(${p.id})">+ Agregar al Carrito</button>
+</div>`).join('');
+}
+function add(id){
+let prod=productos.find(p=>p.id===id);
+let ex=carrito.find(p=>p.id===id);
+if(ex)ex.cant++; else carrito.push({...prod,cant:1});
+updateCart();
+}
+function updateCart(){
+document.getElementById('count').innerText=carrito.reduce((s,p)=>s+p.cant,0);
+let div=document.getElementById('cartItems');
+if(carrito.length===0)div.innerHTML="<p style='text-align:center;color:#999'>Carrito vacio</p>";
+else div.innerHTML=carrito.map(p=>`<div class="cart-item"><img src="${p.img}"><div><b>${p.nombre}</b><br>$${p.precio} x ${p.cant}<div class="qty"><button onclick="change(${p.id},-1)">-</button><button onclick="change(${p.id},1)">+</button><button onclick="removeItem(${p.id})">X</button></div></div></div>`).join('');
+document.getElementById('total').innerText="Total: $"+carrito.reduce((s,p)=>s+p.precio*p.cant,0).toFixed(2);
+}
+function change(id,d){let it=carrito.find(p=>p.id===id);if(!it)return;it.cant+=d;if(it.cant<=0)removeItem(id);else updateCart()}
+function removeItem(id){carrito=carrito.filter(p=>p.id!==id);updateCart()}
+function toggleCart(){document.getElementById('cart').classList.toggle('open');document.getElementById('overlay').style.display=document.getElementById('cart').classList.contains('open')?'block':'none'}
+function checkout(){if(carrito.length===0){alert("Carrito vacio");return}let msg="Hola SPORT ZONE, quiero pedir:%0A";carrito.forEach(p=>{msg+=`- ${p.nombre} x${p.cant} $${p.precio}%0A`});msg+=`%0ATotal: $${carrito.reduce((s,p)=>s+p.precio*p.cant,0).toFixed(2)}%0AEntrega inmediata`;window.open("https://wa.me/50760029048?text="+msg,"_blank")}
+
+// LIGHTBOX
+function openLight(i){currentIndex=i;document.getElementById('lightImg').src=productos[i].img;document.getElementById('caption').innerText=productos[i].nombre;document.getElementById('lightbox').classList.add('open')}
+function closeLight(){document.getElementById('lightbox').classList.remove('open')}
+function move(d){currentIndex=(currentIndex+d+productos.length)%productos.length;openLight(currentIndex)}
+// deslizar con dedo
+let startX=0;
+document.getElementById('lightbox').addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+document.getElementById('lightbox').addEventListener('touchend',e=>{let endX=e.changedTouches[0].clientX;if(endX-startX>50)move(-1);if(startX-endX>50)move(1)});
+
+render();
+</script>
+</body>
+</html>
