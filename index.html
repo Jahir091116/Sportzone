@@ -3,34 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPORT ZONE</title>
+<title>SPORT ZONE - Panama</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
 body{background:#00e5d4}
-header{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px;position:sticky;top:0;z-index:10}
-header span{background:#00e5d4;color:#000;padding:3px 8px;border-radius:10px;font-size:10px;font-weight:bold}
+header{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 14px;position:sticky;top:0;z-index:10}
+header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:bold}
 .cart-btn{background:#00e5d4;color:#000;border:none;padding:10px 18px;border-radius:20px;font-weight:bold}
+/* MENSAJE EMOTIVO */
+.banner{background:#000;color:#fff;padding:18px;text-align:center}
+.banner h2{color:#00e5d4;font-size:18px;margin-bottom:6px}
+.banner p{font-size:13px;line-height:1.4;opacity:.9}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px}
-.card{background:#fff;border-radius:14px;padding:10px;text-align:center}
-.card img{width:100%;height:180px;object-fit:cover;border-radius:10px}
+.card{background:#fff;border-radius:14px;padding:10px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.card img{width:100%;height:185px;object-fit:cover;border-radius:10px}
 .price{color:red;font-weight:bold;font-size:19px;margin:5px 0}
-.btn{background:#000;color:#fff;width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;margin-top:5px}
-#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;z-index:20}
-#cart{position:fixed;top:0;right:-100%;width:88%;max-width:360px;height:100%;background:#fff;z-index:21;transition:.3s;padding:18px;overflow:auto}
-#cart.open{right:0}
-.checkout{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:10px;font-weight:bold;margin-top:10px}
-#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);display:none;justify-content:center;align-items:center;z-index:30}
-#lightbox.open{display:flex}
-#lightbox img{max-width:92%;max-height:82%;border-radius:12px}
-.navbtn{position:absolute;top:50%;background:rgba(255,255,255,.3);border:none;color:#fff;font-size:28px;padding:10px 14px;border-radius:50%}
-#prev{left:12px}#next{right:12px}
-#closeLb{position:absolute;top:15px;right:18px;background:none;border:none;color:#fff;font-size:32px}
-</style>
-</head>
-<body>
-<header><div><b>SPORT ZONE</b> <span>Envios a todo Panama</span></div><button class="cart-btn" onclick="toggleCart()">Carrito <span id="count">0</span></button></header>
-
-<div class="grid">
-<div class="card"><img src="crocs1.jpg" onclick="openLb(0)"><div style="font-size:10px;background:#000;color:#00e5d4;display:inline-block;padding:3px 8px;border-radius:10px;margin:5px">Edicion Limitada</div><div style="font-weight:bold;font-size:12px">Crocs Bowser Verde Limited</div><div class="price">$56.50</div><button class="btn" onclick="addCarrito('Bowser Verde',56.50,'crocs1.jpg')">+ Agregar</button></div>
-<div class="card"><img src="crocs2.jpg" onclick="openLb(1)"><div style="font-size:10px;background:#000;color:#00e5d4;display:inline-block;padding:3px 8px;border-radius:10px;margin:5px">Damas / Ninas</div><div style="font-weight:bold;font-size:12px">Crocs Peach Rosa</div><div class="price">$56.50</div><button class="btn" onclick="addCarrito('Peach Rosa',56.50,'crocs2.jpg')">+ Agregar</button></div>
-<div class="card"><img src="crocs3.jpg" onclick="openLb(2)
+.btn{background:#000;color:#fff;width:100%;padding:11px;border:none;border-radius:8px;font-weight:bold;margin-top:5px;cursor:pointer}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0
