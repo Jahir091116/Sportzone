@@ -3,63 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPORT ZONE - Envíos a todo Panamá</title>
+<title>SPORT ZONE</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#00e5d4}
 header{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;position:sticky;top:0;z-index:10}
 header b{font-size:18px}
-header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold;margin-left:6px}
-.cart-btn{background:#00e5d4;color:#000;border:none;padding:8px 16px;border-radius:20px;font-weight:bold}
+header span{background:#00e5d4;color:#000;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold;margin-left:5px}
+.cart-btn{background:#00e5d4;color:#000;border:none;padding:9px 18px;border-radius:20px;font-weight:bold;cursor:pointer}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
 .card{background:#fff;border-radius:14px;padding:10px;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.2)}
-.card img{width:100%;height:180px;object-fit:cover;border-radius:10px;background:#eee}
-.badge{background:#000;color:#00e5d4;font-size:10px;padding:3px 8px;border-radius:10px;display:inline-block;margin:6px 0}
-.name{font-weight:bold;font-size:13px;min-height:32px}
+.card img{width:100%;height:190px;object-fit:cover;border-radius:10px;cursor:zoom-in}
+.badge{background:#000;color:#00e5d4;font-size:10px;padding:4px 8px;border-radius:10px;display:inline-block;margin:6px 0}
+.name{font-weight:bold;font-size:13px;min-height:34px}
 .price{color:red;font-weight:bold;font-size:20px;margin:5px 0}
-.btn{background:#000;color:#fff;border:none;width:100%;padding:11px;border-radius:8px;font-weight:bold;margin-top:6px;display:block;text-decoration:none}
-.btn-wa{background:#25D366}
+.btn{background:#000;color:#fff;border:none;width:100%;padding:11px;border-radius:8px;font-weight:bold;margin-top:6px;cursor:pointer}
+
+/* CARRITO */
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:none;z-index:20}
+#cart{position:fixed;top:0;right:-100%;width:90%;max-width:380px;height:100%;background:#fff;z-index:21;transition:.3s;padding:20px;overflow-y:auto}
+#cart.open{right:0}
+.cart-item{display:flex;gap:10px;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:10px}
+.cart-item img{width:60px;height:60px;border-radius:8px;object-fit:cover}
+.qty button{padding:4px 9px;margin:2px;border:1px solid #000;background:#fff;border-radius:5px;cursor:pointer}
+.checkout{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer}
+
+/* LIGHTBOX - VER FOTO GRANDE */
+#lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:30;display:none;justify-content:center;align-items:center;flex-direction:column}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90%;max-height:80%;border-radius:12px}
+#lightbox .close{position:absolute;top:15px;right:20px;color:#fff;font-size:30px;background:none;border:none;cursor:pointer}
+#lightbox .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;font-size:28px;padding:10px 15px;border-radius:50%;cursor:pointer}
+#prev{left:15px}#next{right:15px}
+#caption{color:#fff;margin-top:12px;font-weight:bold;text-align:center}
 </style>
 </head>
 <body>
 <header>
-<div><b>SPORT ZONE</b> <span>Envios a todo Panama - Entrega Inmediata</span></div>
-<button class="cart-btn" onclick="alert('Escribe por WhatsApp para pedir')">Carrito</button>
+<div><b>SPORT ZONE</b><span>Envios a todo Panama</span></div>
+<button class="cart-btn" onclick="toggleCart()">Carrito <span id="count">0</span></button>
 </header>
 
-<div class="grid">
-<div class="card">
-<img src="crocs1.jpg" alt="Bowser">
-<div class="badge">Edicion Limitada - Incluye Jibbitz</div>
-<div class="name">Crocs Bowser Verde Limited</div>
-<div class="price">$56.50</div>
-<a class="btn" href="https://wa.me/50760029048?text=Hola%20quiero%20la%20Crocs%20Bowser%20Verde" target="_blank">+ Agregar al Carrito</a>
-</div>
+<div class="grid" id="grid"></div>
 
-<div class="card">
-<img src="crocs2.jpg" alt="Peach">
-<div class="badge">Damas / Ninas - Excelente Calidad</div>
-<div class="name">Crocs Princesa Peach Rosa</div>
-<div class="price">$56.50</div>
-<a class="btn" href="https://wa.me/50760029048?text=Hola%20quiero%20la%20Crocs%20Peach%20Rosa" target="_blank">+ Agregar al Carrito</a>
-</div>
-
-<div class="card">
-<img src="crocs3.jpg" alt="Mario Celeste">
-<div class="badge">Caballeros Ninos - Excelente Calidad</div>
-<div class="name">Crocs Mario Celeste Azul</div>
-<div class="price">$56.50</div>
-<a class="btn" href="https://wa.me/50760029048?text=Hola%20quiero%20la%20Crocs%20Mario%20Celeste" target="_blank">+ Agregar al Carrito</a>
-</div>
-
-<div class="card">
-<img src="crocs4.jpg" alt="Mario Gorra">
-<div class="badge">Edicion Limitada - Excelente Calidad</div>
-<div class="name">Crocs Mario con Gorra 3D</div>
-<div class="price">$56.50</div>
-<a class="btn" href="https://wa.me/50760029048?text=Hola%20quiero%20la%20Crocs%20Mario%20con%20Gorra" target="_blank">+ Agregar al Carrito</a>
-</div>
-</div>
-
-</body>
-</html>
+<!-- CARRITO MODAL -->
+<div id="overlay" onclick="toggleCart()"></div>
+<div
