@@ -53,12 +53,12 @@ header h1{margin:0;font-size:22px;letter-spacing:2px}
 </div>
 <script>
 const productos = [
-{id:1,nombre:"Crocs nombre:"Crocs Bowser Verde Limited - Excelente Calidad"Caballero,precio:56.50,img:"crocs1.jpg",desc:"Excelente Calidad - Incluye Jibbitz"},
+const productos = [
+{id:1,nombre:"Crocs Bowser Verde Limited - Excelente Calidad",precio:56.50,img:"crocs1.jpg",desc:"Edicion Limitada - Incluye Jibbitz"},
 {id:2,nombre:"Crocs Princesa Peach Rosa Glitter",precio:56.50,img:"crocs2.jpg",desc:"Damas / Ninas - Excelente Calidad"},
-{id:3,nombre:"Crocs Mario celeste",precio:56.50,img:"Marioceleste.jpg",desc:"Caballeros Ninos - Excelente Calidad"},
+{id:3,nombre:"Crocs Mario Celeste Azul",precio:56.50,img:"crocs3.jpg",desc:"Caballeros Ninos - Excelente Calidad"},
 {id:4,nombre:"Crocs Bowser Verde Limited Time",precio:56.50,img:"crocs4.jpg",desc:"Edicion Limitada - Excelente Calidad"}
-];
-let carrito = [];
+]
 function renderCatalog(){
 const cont = document.getElementById('catalog');
 cont.innerHTML = productos.map(p=>`
