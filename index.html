@@ -2,127 +2,45 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPORT ZONE - Crocs</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SPORT ZONE - Zona Deportiva</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4}
-header{background:#000;color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-header h1{margin:0;font-size:22px;letter-spacing:2px}
-#cart-btn{background:#fff;color:#000;border:none;padding:10px 15px;border-radius:20px;font-weight:bold;cursor:pointer;position:relative}
-#cart-count{background:#e63946;color:#fff;border-radius:50%;padding:2px 7px;font-size:12px;position:absolute;top:-8px;right:-8px}
-.catalog{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;padding:20px}
-.card{background:#fff;border-radius:12px;padding:15px;width:280px;box-shadow:0 4px 12px rgba(0,0,0,.1);text-align:center;transition:.2s}
-.card:hover{transform:translateY(-3px)}
-.card img{width:100%;height:270px;object-fit:cover;border-radius:8px;background:#fff}
-.price{font-size:22px;font-weight:bold;color:#e63946;margin:8px 0}
-.btn{width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:8px}
-.btn-add{background:#000;color:#fff}
-.btn-wa{background:#25D366;color:#fff;display:block;text-decoration:none;text-align:center;padding:10px;border-radius:8px;margin-top:8px}
-.tag{font-size:11px;background:#000;color:#fff;padding:4px 8px;border-radius:4px;display:inline-block;margin-bottom:5px}
-#cart-modal{position:fixed;top:0;right:-400px;width:360px;max-width:90%;height:100%;background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.2);transition:.3s;z-index:20;display:flex;flex-direction:column}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#00d5c8;color:#000}
+header{position:sticky;top:0;z-index:10;background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+header b{font-size:18px;letter-spacing:1px}
+header small{background:#00d5c8;color:#000;padding:2px 8px;border-radius:12px;font-weight:bold;font-size:11px}
+.cart-btn{background:#00d5c8;color:#000;border:none;padding:8px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.15);text-align:center;padding-bottom:10px}
+.card img{width:100%;height:180px;object-fit:cover}
+.badge{background:#000;color:#00d5c8;display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:bold;margin:6px 0}
+.name{font-size:13px;font-weight:bold;padding:0 6px;height:32px}
+.price{color:#ff0000;font-weight:bold;font-size:19px;margin:4px 0}
+.btn-black{background:#000;color:#fff;width:90%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:5px}
+.btn-black:active{background:#333}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;z-index:11}
+#cart-modal{position:fixed;top:0;right:-100%;width:85%;max-width:360px;height:100%;background:#fff;z-index:12;transition:.3s;overflow-y:auto;padding:20px}
 #cart-modal.open{right:0}
-#cart-header{padding:15px;background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center}
-#cart-items{flex:1;overflow-y:auto;padding:15px}
-.cart-item{display:flex;gap:10px;margin-bottom:15px;border-bottom:1px solid #eee;padding-bottom:10px}
-.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:6px}
-.cart-item-info{flex:1}
-.cart-item-info h4{margin:0;font-size:14px}
-.cart-remove{background:#ff4444;color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;font-size:12px;margin-top:5px}
-#cart-footer{padding:15px;border-top:1px solid #eee}
-#cart-total{font-size:20px;font-weight:bold;margin-bottom:10px}
-.checkout-btn{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:16px}
-#overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:15}
-#overlay.show{display:block}
+.cart-item{display:flex;gap:10px;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:10px}
+.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:8px}
+.qty button{padding:4px 8px;border-radius:4px;border:1px solid #000;background:#fff;cursor:pointer;font-size:12px}
+.checkout-btn{background:#25D366;color:#fff;width:100%;padding:14px;border:none;border-radius:8px;font-weight:bold;font-size:16px;cursor:pointer;margin-top:10px}
+.clear-btn{width:100%;margin-top:8px;background:#eee;border:none;padding:10px;border-radius:8px;cursor:pointer}
 </style>
 </head>
 <body>
 <header>
-<div><h1>SPORT ZONE</h1><small>Envios a todo Panama - Entrega Inmediata</small></div>
-<button id="cart-btn" onclick="toggleCart()">Carrito <span id="cart-count">0</span></button>
+<div><b>SPORT ZONE</b><br><small>Envios a todo Panama - Entrega Inmediata</small></div>
+<button class="cart-btn" onclick="toggleCart()">Carrito <span id="cart-count">0</span></button>
 </header>
-<div class="catalog" id="catalog"></div>
+
+<div class="grid" id="catalog"></div>
+
 <div id="overlay" onclick="toggleCart()"></div>
 <div id="cart-modal">
-<div id="cart-header"><h3>Tu Carrito</h3><button onclick="toggleCart()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer">X</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px">
+<h3>Tu Carrito</h3><button onclick="toggleCart()" style="background:none;border:none;font-size:22px;cursor:pointer">X</button>
+</div>
 <div id="cart-items"></div>
-<div id="cart-footer">
-<div id="cart-total">Total: $0.00</div>
-<button class="checkout-btn" onclick="checkout()">Pedir por WhatsApp</button>
-<button onclick="clearCart()" style="width:100%;margin-top:8px;background:#eee;border:none;padding:10px;border-radius:8px;cursor:pointer">Vaciar Carrito</button>
-</div>
-</div>
-<script>
-const productos = [
-const productos = [
-{id:1,nombre:"Crocs Bowser Verde",precio:56.50,img:"crocs1.jpg",desc:"Edicion Limitada - Incluye Jibbitz"},
-{id:2,nombre:"Crocs Princesa Peach Rosa",precio:56.50,img:"crocs2.jpg",desc:"Damas / Ninas - Excelente Calidad"},
-{id:3,nombre:"Crocs Mario Celeste",precio:56.50,img:"crocs3.jpg",desc:"Caballeros Ninos - Excelente Calidad"},
-{id:4,nombre:"Crocs Mario con Gorra",precio:56.50,img:"crocs4.jpg",desc:"Edicion Limitada - Excelente Calidad"}
-];
-function renderCatalog(){
-const cont = document.getElementById('catalog');
-cont.innerHTML = productos.map(p=>`
-<div class="card">
-<img src="${p.img}" alt="${p.nombre}">
-<span class="tag">EXCELENTE CALIDAD</span>
-<h3>${p.nombre}</h3>
-<p style="font-size:13px;color:#666">${p.desc}<br>Envios a todo Panama<br><b>Entrega Inmediata</b></p>
-<p class="price">$${p.precio.toFixed(2)}</p>
-<button class="btn btn-add" onclick="addToCart(${p.id})">+ Agregar al Carrito</button>
-<a class="btn-wa" href="https://wa.me/50760029048?text=Hola%20quiero%20${encodeURIComponent(p.nombre)}%20$56.50" target="_blank">Comprar directo</a>
-</div>
-`).join('');
-}
-function addToCart(id){
-const prod = productos.find(p=>p.id===id);
-const existe = carrito.find(c=>c.id===id);
-if(existe){existe.cant++} else {carrito.push({...prod,cant:1})}
-updateCart();
-document.getElementById('cart-modal').classList.add('open');
-document.getElementById('overlay').classList.add('show');
-}
-function removeFromCart(id){carrito = carrito.filter(c=>c.id!==id);updateCart();}
-function changeQty(id,delta){
-const item = carrito.find(c=>c.id===id);
-if(!item) return;
-item.cant+=delta;
-if(item.cant<=0) removeFromCart(id);
-else updateCart();
-}
-function clearCart(){carrito=[];updateCart();}
-function updateCart(){
-document.getElementById('cart-count').innerText = carrito.reduce((s,c)=>s+c.cant,0);
-const itemsDiv = document.getElementById('cart-items');
-const total = carrito.reduce((s,c)=>s+c.precio*c.cant,0);
-if(carrito.length===0){itemsDiv.innerHTML="<p style='text-align:center;color:#888'>Tu carrito esta vacio</p>";}
-else {
-itemsDiv.innerHTML = carrito.map(c=>`
-<div class="cart-item">
-<img src="${c.img}">
-<div class="cart-item-info">
-<h4>${c.nombre}</h4>
-<p>$${c.precio.toFixed(2)} x ${c.cant} = <b>$${(c.precio*c.cant).toFixed(2)}</b></p>
-<button onclick="changeQty(${c.id},-1)">-</button> ${c.cant} <button onclick="changeQty(${c.id},1)">+</button>
-<button class="cart-remove" onclick="removeFromCart(${c.id})">Eliminar</button>
-</div>
-</div>
-`).join('');
-}
-document.getElementById('cart-total').innerText = `Total: $${total.toFixed(2)}`;
-}
-function toggleCart(){
-document.getElementById('cart-modal').classList.toggle('open');
-document.getElementById('overlay').classList.toggle('show');
-}
-function checkout(){
-if(carrito.length===0){alert("Tu carrito esta vacio");return}
-let mensaje = "Hola SPORT ZONE! Quiero pedir:%0A";
-carrito.forEach(c=>{mensaje+=`- ${c.nombre} x${c.cant} = $${(c.precio*c.cant).toFixed(2)}%0A`});
-const total = carrito.reduce((s,c)=>s+c.precio*c.cant,0);
-mensaje+=`%0ATotal: $${total.toFixed(2)}%0AEnvio a todo Panama - Entrega Inmediata%0AGracias!`;
-window.open(`https://wa.me/50760029048?text=${mensaje}`,"_blank");
-}
-renderCatalog();updateCart();
-</script>
-</body>
-</html>
+<div id="cart-total"
